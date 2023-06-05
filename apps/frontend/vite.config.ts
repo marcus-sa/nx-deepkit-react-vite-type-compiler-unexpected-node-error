@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
+import { deepkitType } from '@deepkit/vite';
 
 export default defineConfig({
   cacheDir: '../../node_modules/.vite/frontend',
@@ -21,7 +22,21 @@ export default defineConfig({
     viteTsConfigPaths({
       root: '../../',
     }),
+    deepkitType(),
   ],
+
+  build: {
+    modulePreload: false,
+    minify: false,
+    rollupOptions: {
+      preserveEntrySignatures: 'strict',
+      output: {
+        preserveModules: true,
+        esModule: true,
+        format: 'esm',
+      },
+    }
+  },
 
   // Uncomment this if you are using workers.
   // worker: {
